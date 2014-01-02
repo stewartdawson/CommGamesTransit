@@ -75,7 +75,7 @@ var svg = d3.select("body").append("svg")
     svg.selectAll(".bus_stop").remove();
   }
 
-d3.json("MetroExtractGlasgow/osmShapefiles/glasgow/json/glasgow.json", function(error, uk) {
+d3.json("topo/glasgow.json", function(error, uk) {
   function displayGlasgow()
   {
       clear();

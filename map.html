@@ -78,11 +78,10 @@ li{
 </div>
 <script>
 var VM = {
-  //topology data
+  //glasgow topology data
   glasgow:{},
   city: function(){return this.glasgow.objects.glasgow;},
   clyde: function(){return this.glasgow.objects.riverClyde;},
-
   //map settings
   map: new function(){
     this.width = 600;
@@ -98,8 +97,17 @@ var VM = {
     this.svg = d3.select("div#map").append("svg")
       .attr("width", this.width)
       .attr("height", this.height);
+    this.centerPoint = function(loc){return this.path.centroid(topojson.feature(VM.glasgow, loc));}
   },
-    selectedStation:ko.observable('')
+  //domain data
+  selectedStation:ko.observable(''),
+  events:[{id:'rugby', 
+	  img:'rugby-sevens.png', 
+	  zoomCenter:[0.095, 55.852],
+	  venue:function(){return VM.glasgow.objects.Ibrox;}, 
+	  area:function(){return VM.glasgow.objects.IbroxArea},
+	  transit:function(){return VM.glasgow.objects.IbroxTransit;}
+  }],
 };
 
   function clear()
@@ -128,38 +136,37 @@ var VM = {
       .attr('class', 'river').attr("d", VM.map.path);
 
       VM.map.projection.center([0.2, 55.85]).scale(120000); //set the scale before calculating the centroids for the images
-      VM.map.svg.selectAll('path').transition().duration(800).attr('d', VM.map.path);
-      rug = VM.map.path.centroid(topojson.feature(VM.glasgow, VM.glasgow.objects.Ibrox));
+      VM.map.svg.selectAll('path').transition().duration(600).attr('d', VM.map.path);
 
-      VM.map.svg.selectAll('.rugby').data([0]).enter()
+      VM.map.svg.selectAll('.event').data(VM.events).enter()
       .append('svg:image')
-      .attr('x',rug[0]-23)
-      .attr('y',rug[1]-24)//subtract half the size of the image
+      .attr('x', function(d){return VM.map.centerPoint(d.venue())[0]-23;})
+      .attr('y', function(d){return VM.map.centerPoint(d.venue())[1]-24;})//subtract half the size of the image
       .attr('width', 46)
       .attr('height',48)
-      .attr("xlink:href","imgs/rugby-sevens.png")
-      .on('click', function(){displayArea(VM.glasgow.objects.IbroxArea, [0.095, 55.852], VM.glasgow.objects.Ibrox, VM.glasgow.objects.IbroxTransit);});
+      .attr("xlink:href", function(d){return "imgs/" + d.img;})
+      .on('click', function(d){displayArea(d);});
   }
 
-  function displayArea(dat, cent, ven, trans)
+  function displayArea(areaData)
   {
     clear();
 
     VM.map.svg.selectAll(".area")
-    .data(topojson.feature(VM.glasgow, dat).features)
+    .data(topojson.feature(VM.glasgow, areaData.area()).features)
     .enter().append("path")
     .attr("class", function(d) { return d.id; })
     .attr("d", VM.map.path)
     .on('click', function(){displayGlasgow();});
 
     VM.map.svg.selectAll('.venue')
-    .data(topojson.feature(VM.glasgow, ven).features)
+    .data(topojson.feature(VM.glasgow, areaData.venue()).features)
     .enter().append('path')
     .attr('class', 'venue')
     .attr('d', VM.map.path);
 
     VM.map.svg.selectAll(".transit")
-      .data(topojson.feature(VM.glasgow, trans).features)
+      .data(topojson.feature(VM.glasgow, areaData.transit()).features)
       .enter().append("path")
       .attr('name', 'stop')
       .attr("class", function(d){ if(d.properties.highway=='bus_stop') {return "bus_stop"} else {return "station";}})
@@ -172,8 +179,8 @@ var VM = {
       .on('click', function(d){console.log(d);});
 
     //projection.center([0.09,55.848]).scale(1600000);
-    VM.map.projection.center(cent).scale(1600000);
-    VM.map.svg.selectAll('path').transition().duration(1000).attr('d', VM.map.path);
+    VM.map.projection.center(areaData.zoomCenter).scale(1600000);
+    VM.map.svg.selectAll('path').transition().duration(800).attr('d', VM.map.path);
   }
 
 d3.json("topo/glasgow.json", function(error, glas) {

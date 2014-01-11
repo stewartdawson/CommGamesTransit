@@ -16,7 +16,7 @@ svg{border:1px solid black;}*/
 	position:absolute;
 	left:600px;
 	top:0px;
-	width:200px;	
+	width:200px;
 }
 #wrap
 {
@@ -101,10 +101,10 @@ var VM = {
   },
   //domain data
   selectedStation:ko.observable(''),
-  events:[{id:'rugby', 
-	  img:'rugby-sevens.png', 
+  events:[{id:'rugby',
+	  img:'rugby-sevens.png',
 	  zoomCenter:[0.095, 55.852],
-	  venue:function(){return VM.glasgow.objects.Ibrox;}, 
+	  venue:function(){return VM.glasgow.objects.Ibrox;},
 	  area:function(){return VM.glasgow.objects.IbroxArea},
 	  transit:function(){return VM.glasgow.objects.IbroxTransit;}
   }],
@@ -174,7 +174,7 @@ var VM = {
       .on('mouseover', function(d){
         d3.selectAll('[name="stop"]').classed('red', false);
         d3.select(this).classed('red', true);
-        VM.selectedStation(d.id);
+        VM.selectedStation(d.properties.osm_id);
       })
       .on('click', function(d){console.log(d);});
 

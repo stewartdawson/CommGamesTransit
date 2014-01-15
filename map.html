@@ -118,18 +118,20 @@ var VM = {
 
   function clear()
   {
-    VM.map.svg.selectAll(".area").remove();
-    VM.map.svg.selectAll('.glasgow').remove();
-    VM.map.svg.selectAll('.river').remove();
+    //VM.map.svg.selectAll(".area").remove();
+    //VM.map.svg.selectAll('.glasgow').remove();
+    //VM.map.svg.selectAll('.river').remove();
     VM.map.svg.selectAll('image').attr('opacity', '0');
     //VM.map.svg.selectAll('image').remove();
-    VM.map.svg.selectAll('.venue').remove();
-    VM.map.svg.selectAll(".station").remove();
-    VM.map.svg.selectAll(".bus_stop").remove();
+    //VM.map.svg.selectAll('.venue').remove();
+    //VM.map.svg.selectAll(".station").remove();
+    //VM.map.svg.selectAll(".bus_stop").remove();
+    VM.map.svg.selectAll('path').remove();
   }
 
   function displayGlasgow()
   {
+      clear();
       VM.selectedStation('');
       VM.map.svg.append("path")
       .datum(topojson.feature(VM.glasgow, VM.city()))

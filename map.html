@@ -106,8 +106,14 @@ var VM = {
 	  zoomCenter:[0.095, 55.852],
 	  venue:function(){return VM.glasgow.objects.Ibrox;},
 	  area:function(){return VM.glasgow.objects.IbroxArea},
-	  transit:function(){return VM.glasgow.objects.IbroxTransit;}
-  }],
+	  transit:function(){return VM.glasgow.objects.IbroxTransit;}},
+        {id:'cycling',
+        img:'cycling.png',
+        zoomCenter:[0.19, 55.847],
+        venue:function(){return VM.glasgow.objects.Velodrome;},
+        area:function(){return VM.glasgow.objects.DalmarnockArea;},
+        transit:function(){return VM.glasgow.objects.DalmarnockTransit;}}
+  ],
 };
 
   function clear()

@@ -153,7 +153,8 @@ var VM = {
       .attr('width', 46)
       .attr('height',48)
       .attr("xlink:href", function(d){return "imgs/" + d.img;})
-      .on('click', function(d){displayArea(d);});
+      .on('click', function(d){displayArea(d);})
+      .on('mouseover', function(d){VM.selectedStation(d.id);});
   }
 
   function displayArea(areaData)

@@ -42,7 +42,7 @@ ogr2ogr -f GeoJSON -clipsrc -4.2931 55.8474 -4.3248 55.8573 json/IbroxArea.json 
 
 touch json/IbroxTransit.json
 rm json/IbroxTransit.json
-ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 -where "type='bus_stop'" json/IbroxTransit.json scotland/points.shp
+ogr2ogr -f GeoJSON -clipsrc -4.2931 55.8474 -4.3248 55.8573  -where "type='bus_stop'" json/IbroxTransit.json scotland/points.shp
 
 # build topo file
 touch topo/glasgow.json

@@ -12,7 +12,7 @@ touch json/CommArea.json
 rm json/CommArea.json
 # ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 -where "highway<>''" json/CommArea.json glasgow/glasgow.osm-line.shp
 ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 json/CommArea.json scotland/landuse.shp
-ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 -update -append json/CommArea.json scotland/roadways.shp
+#ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 -update -append json/CommArea.json scotland/roads.shp
 
 touch json/CommTransit.json
 rm json/CommTransit.json

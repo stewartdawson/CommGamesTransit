@@ -80,7 +80,7 @@ li{
 var VM = {
   //glasgow topology data
   glasgow:{},
-  city: function(){return this.glasgow.objects.glasgow;},
+  city: function(){return this.glasgow.objects.city;},
   clyde: function(){return this.glasgow.objects.riverClyde;},
   //map settings
   map: new function(){
@@ -111,8 +111,8 @@ var VM = {
         img:'cycling.png',
         zoomCenter:[0.19, 55.847],
         venue:function(){return VM.glasgow.objects.Velodrome;},
-        area:function(){return VM.glasgow.objects.DalmarnockArea;},
-        transit:function(){return VM.glasgow.objects.DalmarnockTransit;}}
+        area:function(){return VM.glasgow.objects.CommArea;},
+        transit:function(){return VM.glasgow.objects.CommTransit;}}
   ],
 };
 

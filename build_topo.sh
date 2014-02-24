@@ -7,6 +7,12 @@ touch json/riverClyde.json
 rm json/riverClyde.json
 ogr2ogr -f GeoJSON -clipdst json/city.json -where "name='River Clyde'" json/riverClyde.json scotland/waterways.shp
 
+#Create Glasgow area detail
+#touch glasgow/glasgow-from-scotland-roadlanduse.tab
+#rm glasgow/glasgow-from-scotland-roadlanduse.tab
+#ogr2ogr -f 'MapInfo File' -clipdst json/city.json glasgow/glasgow-from-scotland-roadlanduse.tab scotland/landuse.shp
+#ogr2ogr -f 'MapInfo File' -clipdst json/city.json -update -append glasgow/glasgow-from-scotland-roadlanduse.tab scotland/roads.shp
+
 # Commonwealth area with celtic park, the velodrome, and the athletes village
 touch json/CommArea.json
 rm json/CommArea.json

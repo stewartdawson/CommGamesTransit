@@ -2,7 +2,6 @@
 # City View
 rm -f json/city.json
 ogr2ogr -f GeoJSON -where "name='Glasgow City'" json/city.json glasgow/glasgow.osm-polygon.shp
-#touch json/riverClyde.json
 rm -f json/riverClyde.json
 ogr2ogr -f GeoJSON -clipdst json/city.json -where "name='River Clyde'" json/riverClyde.json scotland/waterways.shp
 

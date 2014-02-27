@@ -7,9 +7,9 @@ ogr2ogr -f GeoJSON -clipdst json/city.json -where "name='River Clyde'" json/rive
 
 #Create Glasgow area detail
 rm -f glasgow/glasgow-from-scotland-roadlanduse.shp
-ogr2ogr --config SHAPE_ENCODING "UTF-8" glasgow/glasgow-from-scotland-roadlanduse.shp scotland/roads.shp
-ogr2ogr --config SHAPE_ENCODING "UTF-8" -update -append  glasgow/glasgow-from-scotland-roadlanduse.shp scotland/landuse.shp
-ogr2ogr --config SHAPE_ENCODING "UTF-8" -update -append  glasgow/glasgow-from-scotland-roadlanduse.shp scotland/buildings.shp
+ogr2ogr -clipsrc -3.8883 55.7290 -4.5291 55.9669 --config SHAPE_ENCODING "UTF-8" glasgow/glasgow-from-scotland-roadlanduse.shp scotland/roads.shp
+ogr2ogr -clipsrc -3.8883 55.7290 -4.5291 55.9669 --config SHAPE_ENCODING "UTF-8" -update -append  glasgow/glasgow-from-scotland-roadlanduse.shp scotland/landuse.shp
+ogr2ogr -clipsrc -3.8883 55.7290 -4.5291 55.9669 --config SHAPE_ENCODING "UTF-8" -update -append  glasgow/glasgow-from-scotland-roadlanduse.shp scotland/buildings.shp
 
 # Commonwealth area with celtic park, the velodrome, and the athletes village
 rm -f json/CommArea.json
@@ -36,7 +36,7 @@ ogr2ogr -f GeoJSON -where "name='Sir Chris Hoy Velodrome'" json/Velodrome.json s
 rm -f json/Ibrox.json
 ogr2ogr -f GeoJSON -where "name='Ibrox Stadium'" json/Ibrox.json glasgow/glasgow.osm-polygon.shp
 rm -f json/IbroxArea.json
-ogr2ogr -f GeoJSON -clipsrc -4.2931 55.8474 -4.3248 55.8573 json/IbroxArea.json scotland/landuse.shp
+ogr2ogr -f GeoJSON -clipsrc -4.2931 55.8474 -4.3248 55.8573 json/IbroxArea.json glasgow/glasgow-from-scotland-roadlanduse.shp
 
 rm -f json/IbroxTransit.json
 ogr2ogr -f GeoJSON -clipsrc -4.2931 55.8474 -4.3248 55.8573  -where "type='bus_stop'" json/IbroxTransit.json scotland/points.shp

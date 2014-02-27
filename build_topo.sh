@@ -6,15 +6,16 @@ rm -f json/riverClyde.json
 ogr2ogr -f GeoJSON -clipdst json/city.json -where "name='River Clyde'" json/riverClyde.json scotland/waterways.shp
 
 #Create Glasgow area detail
-#rm -f glasgow/glasgow-from-scotland-roadlanduse.tab
-#ogr2ogr -f 'MapInfo File' -clipdst json/city.json glasgow/glasgow-from-scotland-roadlanduse.tab scotland/landuse.shp
-#ogr2ogr -f 'MapInfo File' -clipdst json/city.json -update -append glasgow/glasgow-from-scotland-roadlanduse.tab scotland/roads.shp
+rm -f glasgow/glasgow-from-scotland-roadlanduse.shp
+ogr2ogr --config SHAPE_ENCODING "UTF-8" glasgow/glasgow-from-scotland-roadlanduse.shp scotland/roads.shp
+ogr2ogr --config SHAPE_ENCODING "UTF-8" -update -append  glasgow/glasgow-from-scotland-roadlanduse.shp scotland/landuse.shp
+ogr2ogr --config SHAPE_ENCODING "UTF-8" -update -append  glasgow/glasgow-from-scotland-roadlanduse.shp scotland/buildings.shp
 
 # Commonwealth area with celtic park, the velodrome, and the athletes village
 rm -f json/CommArea.json
 # ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 -where "highway<>''" json/CommArea.json glasgow/glasgow.osm-line.shp
 #ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 json/CommArea.json scotland/landuse.shp
-ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 json/CommArea.json scotland/roads.shp
+ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 json/CommArea.json glasgow/glasgow-from-scotland-roadlanduse.shp
 
 rm -f json/CommTransit.json
 ogr2ogr -f GeoJSON -clipsrc -4.1936 55.8379 -4.2274 55.8513 -where "type='bus_stop'" json/CommTransit.json scotland/points.shp

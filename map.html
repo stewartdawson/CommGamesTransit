@@ -178,7 +178,7 @@ var VM = {
       .data(topojson.feature(VM.glasgow, areaData.transit()).features)
       .enter().append("path")
       .attr('name', 'stop')
-      .attr("class", function(d){ if(d.properties.highway=='bus_stop') {return "bus_stop"} else {return "station";}})
+      .attr("class", function(d){ if(d.properties.type=='bus_stop') {return "bus_stop"} else {return "station";}})
       .attr("d", VM.map.path)
       .on('mouseover', function(d){
         d3.selectAll('[name="stop"]').classed('red', false);
